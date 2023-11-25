@@ -11,7 +11,18 @@ class BookController extends BaseController
 {
     public function create(BookCreateRequest $request)
     {
-        $book = Book::insert($request->all());
+        if($request->hasFile('image')) {
+            $file = $request->file('image');
+            $filePath = $file->store('public');
+            $filePath = explode(DIRECTORY_SEPARATOR, $filePath);
+        }
+
+        $book = Book::insert([
+            'name' => $request->input('name'),
+            'short_description' => $request->input('short_description'),
+            'image' => $filePath[1],
+            'publication_date' => $request->input('publication_date')
+        ]);
 
         return response()->json($book);
     }

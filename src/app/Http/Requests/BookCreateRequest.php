@@ -16,7 +16,7 @@ class BookCreateRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'short_description' => ['string', 'max:255'],
-            'image' => ['string', 'max:255'],
+            'image' => ['image', 'max:2000'],
             'publication_date' => ['required', 'date'],
         ];
     }
